@@ -1,4 +1,4 @@
-# Python IP sub and sub-subnet calculator
+# Python IP IPv4 list generator
 
 This script takes three arguments: starting and ending IPs, and number of batches.
 It generates files with one IP per line where the starting and ending IPs are the ones given.
