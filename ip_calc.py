@@ -5,13 +5,13 @@ def preferences(): #Sets user preferences
     batches = int(input("Number of Batches to create: "))
     if batches == 0:
         print("Hahaha. Very funny...")
-		input()
+        input()
         exit()
-    os.system('cls' if os.name == 'nt' else 'clear')
-    for x in range(batches):        
+    for x in range(batches):
+        os.system('cls' if os.name == 'nt' else 'clear')
         while 1:
             ip_start=[]
-            print("Batch",x+1,"STARTING IP: ", end="")
+            print("Batch",x+1,"STARTING IP: \t", end="")
             ip_start.append(str(input()))
             if len(ip_start[x].split('.')) == 4:
                 break
@@ -21,7 +21,7 @@ def preferences(): #Sets user preferences
                 
         while 1:
             ip_end=[]
-            print("Batch",x+1,"ENDING IP: ", end="")
+            print("Batch",x+1,"ENDING IP: \t", end="")
             ip_end.append(str(input()))
             if len(ip_end[x].split('.')) == 4:
                 break
@@ -56,6 +56,7 @@ def main():
         for g in ip_list:
             f.write(str(g)+"\n")
         f.close() 
-    print("Done. IP list in script directory")
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("Done. IP list(s) in script directory under name \"Batch_XX.txt\"")
     input()
 main()
