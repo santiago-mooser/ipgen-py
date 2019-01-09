@@ -8,25 +8,31 @@ It generates files with one IP per line where the starting and ending IPs are th
 #### Batches: 
 
 Number of files that this script should generate. Each batch has the normal IP range (0.0.0.0 - 255.255.255.255)
-and will require the input of starting and ending IPs
+and will require the input of starting and ending IPs.
 
-#### Starting and ending IPs:
-IP where the file should start and end. 
+#### Starting IP and mask:
+Starting IP and what the network mask should be (NOT the host mask). 
+Format is 'xxx.xxx.xxx.xxx/xx'
+
+#### Include unuseable hosts
+Includes or excludes default gateway and broadcasts addressses.
 	
 	
 ## Example:
+
 	IP Address Target File Creator
-	Ver: 0.1
+	Ver: 0.2
 	Number of Batches to create:
 
 1
 
-	Batch 1 STARTING IP:
+	Batch 1
+	Starting IP and mask (xxx.xxx.xxx.xxx/xx): 
 
-127.0.0.0
+127.0.0.0/25
 
-	Batch 1 ENDING IP:
+	Include unuseable hosts? (Y/N):
 
-127.0.0.255
+Y
 
 	Done. IP list(s) in script directory under name "Batch_XX.txt"
