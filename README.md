@@ -15,7 +15,7 @@ Starting IP and what the network mask should be (NOT the host mask).
 Format is 'xxx.xxx.xxx.xxx/xx'
 
 #### Include unuseable hosts
-Includes or excludes default gateway and broadcasts addressses.
+Includes or excludes default gateway and broadcasts addressses. (EG: 192.168.0.0 and 192.168.0.255)
 	
 	
 ## Example:
