@@ -1,38 +1,51 @@
-# Python IPv4 list generator
+# IP list generator
 
-This script takes three arguments: starting and ending IPs, and number of batches.
-It generates files with one IP per line where the starting and ending IPs are the ones given.
+This script takes IP ranges and an "unusable hosts" flag as arguments and generates lists of IPs for each given range.
 
 ## Usage:
 
-#### Batches: 
+```
+ip_gen.py -r [ip range] <[...]> <-u>
+```
 
-Number of files that this script should generate. Each batch has the normal IP range (0.0.0.0 - 255.255.255.255)
-and will require the input of starting and ending IPs.
+## Example:
+```
+ip_gen.py -r 192.168.1.0/30 2620:0:2d0:200::7/124 -u
+```
+
+The previous commandline arguments will restult in two lists (batch_0.txt and batch_1.txt):
+
+batch_0.txt:
+```
+192.168.1.0
+192.168.1.1
+192.168.1.2
+192.168.1.3
+```
+batch_1.txt:
+```
+2620:0:2d0:200::
+2620:0:2d0:200::1
+2620:0:2d0:200::2
+2620:0:2d0:200::3
+2620:0:2d0:200::4
+2620:0:2d0:200::5
+2620:0:2d0:200::6
+2620:0:2d0:200::7
+2620:0:2d0:200::8
+2620:0:2d0:200::9
+2620:0:2d0:200::a
+2620:0:2d0:200::b
+2620:0:2d0:200::c
+2620:0:2d0:200::d
+2620:0:2d0:200::e
+2620:0:2d0:200::f	
+```
+
 
 #### Starting IP and mask:
 Starting IP and what the network mask should be (NOT the host mask). 
 Format is 'xxx.xxx.xxx.xxx/xx'
 
 #### Include unuseable hosts
-Includes or excludes default gateway and broadcasts addressses. (EG: 192.168.0.0 and 192.168.0.255)
-	
-	
-## Example:
-
-	IP Address Target File Creator
-	Ver: 0.2
-	Number of Batches to create:
-
-1
-
-	Batch 1
-	Starting IP and mask (xxx.xxx.xxx.xxx/xx): 
-
-127.0.0.0/25
-
-	Include unuseable hosts? (Y/N):
-
-Y
-
-	Done. IP list(s) in script directory under name "Batch_XX.txt"
+Includes or excludes default gateway and broadcasts addressses. (Eg: 192.168.0.0 and 192.168.0.255)
