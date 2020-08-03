@@ -1,67 +1,60 @@
 import ipaddress
-import os
 import getopt
-import sys
+import argparse
 
-def ipLister(t):
-    os.system('cls' if os.name == 'nt' else 'clear')
+def ipLister(range, unusuable_hosts):
+    ip_range=ipaddress.ip_network(range, strict=False)
+    ip_list =""
 
-    while 1:
-        try:
-            print("Batch", t+1)
-            start_ip=ipaddress.ip_network(input("Starting IP and mask (xxx.xxx.xxx.xxx/xx): "))
-            break
-        except ValueError:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("Invalid format or network", "red")
-            continue
-
-    while 1:
-        ip_list=[]
-        choice=str(input("Include unuseable hosts? (Y/N): "))
-        
-        if choice.lower() == "y":
-            for addr in ipaddress.IPv4Network(start_ip):
-                ip_list.append(addr)
-            break
-        elif choice.lower() =="n":
-            ip_list=list(ipaddress.ip_network(start_ip).hosts())
-            break
+    if unusuable_hosts == True:
+        if ip_range.version == 4:
+            ip_list = ipaddress.IPv4Network(ip_range)
         else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("Invalid input")
-            continue
+            ip_list = ipaddress.IPv6Network(ip_range)
+    else:
+        ip_list=list(ipaddress.ip_network(ip_range).hosts())
 
     return ip_list
 
 def main():
-    
-    print("IPv4 Address Target-File Creator\nVer: 0.2\n")
-    print("***WARNING: IS SLOW WITH LARGE (500+) LISTS***\n")
-    
-    while 1:
+    print("-----\nIPv4 Address Target-File Creator\nVer: 0.3\n-----\n")
+    ranges, unusable_hosts = argument_parser()
+
+    failed_ranges = {}
+    successful_ranges= {}
+
+    for ip_range in ranges:
         try:
-            batches=int(input("Number of batches to create: "))
-            break
-        except ValueError:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("Invalid input")
+            ip_list = ipLister(ip_range, unusable_hosts)
+            
+            try:
+                filename = "batch_"+str(ranges.index(ip_range))+".txt"
+                f = open(filename, "w+")
+                for line in ip_list:
+                    f.write(str(line)+"\n")
+                f.close()
+                print("Wrote "+str(ip_range)+" in "+str(filename))
+                successful_ranges.update( {"Ip range":ip_range})
+            except:
+                print(str(ip_range)+"\tUnable to open file for writing. Continuing to next iteration")
+                failed_ranges.update( {"range":{"range":ip_range, "error":"Failed to write file"} })
+                continue
+        except:
+            print(str(ip_range)+"\tIncorrect syntax. Continuing to next argument")
+            failed_ranges.update({"range":{"range:":ip_range,"error":"incorrect syntax"} } )
             continue
-            
-    for t in range(batches):
+
+    exit(0)
+
+def argument_parser():
+    description = "ip_gen.py generates lists of IP addresses to use with nmap. It supports IPv4 and IPv6 addresses"
+    usage= "\t\tip_gen.py -r [ip range] <[...]> <-u>\nexample:\tip_gen.py -r 192.168.1.0/30 2620:0:2d0:200::7/124 -u"
+    parser = argparse.ArgumentParser(description=description, usage=usage)
+
+    parser.add_argument('-r', nargs="+",help='IP ranges to generate', default="", required=True)
+    parser.add_argument('-u', help='Include unusable hosts (Gateway and broadcast addresses)', action='store_true', default=False)
+    args = parser.parse_args()
     
-        ip_list=ipLister(t)
-        
-        for y in range(len(ip_list)):        #print to file
-            file_name = "batch_"+str(t)+".txt"
-            f=open(file_name, 'w+')
-            for g in ip_list:
-                f.write(str(g)+"\n")
-            f.close()
-            
-        os.system('cls' if os.name == 'nt' else 'clear')
-        
-    print("Done. IP list(s) in script directory under name \"Batch_XX.txt\"")
-    input()
+    return args.r, args.u
 
 main()
