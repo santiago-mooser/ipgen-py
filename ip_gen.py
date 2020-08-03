@@ -1,3 +1,31 @@
+#!/usr/bin/python3
+#***************************************************************************
+#   ip_gen.py  -- script to generate IPv4 and IPv6 lists (eg. for nmap)
+#
+#   Please see https://github.com/santiago-espinosa/ip-list-generator for
+#   usage information
+# 
+#   Version 0.3.1 Santiago 03/08/20
+#       Added modular and IPv6 support
+# 
+#***************************************************************************
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+# ***************************************************************************
+
+
 import ipaddress
 import argparse
 
