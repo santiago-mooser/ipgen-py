@@ -15,7 +15,7 @@ def ipLister(range, unusuable_hosts):
 
     return ip_list
 
-def main(ranges, unusable_hosts, noOutput):
+def generateList(ranges, unusable_hosts, noOutput):
     print("-----\nIPv4 Address Target-File Creator\nVer: 0.3\n-----\n")
     ipListArray = {}
     failed_ranges = {}
@@ -60,7 +60,7 @@ def argument_parser():
     parser.add_argument('-r', nargs="+",help='IP ranges to generate', default="", required=True)
     parser.add_argument('-u', help='Include unusable hosts (Gateway and broadcast addresses)', action='store_true', default=False)
     args = parser.parse_args()
-    
+    print(args.r)
     if __name__ == "__main__" and args.no:
         print("No output is only supported if script is run as a module")
         exit(1)
@@ -69,4 +69,4 @@ def argument_parser():
 
 if __name__ == "__main__":
     ranges, unusable_hosts, noOutput = argument_parser()
-    main(ranges, unusable_hosts, noOutput)
+    generateList(ranges, unusable_hosts, noOutput)
