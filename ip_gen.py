@@ -15,8 +15,7 @@ def ipLister(range, unusuable_hosts):
 
     return ip_list
 
-def main():
-    ranges, unusable_hosts, noOutput = argument_parser()
+def main(ranges, unusable_hosts, noOutput):
     print("-----\nIPv4 Address Target-File Creator\nVer: 0.3\n-----\n")
     ipListArray = {}
     failed_ranges = {}
@@ -50,7 +49,7 @@ def main():
     if __name__ == "__main__":
         exit(0)
     else:
-        return ipListArray
+        return ipListArray, failed_ranges
 
 def argument_parser():
     description = "ip_gen.py generates lists of IP addresses to use with nmap. It supports IPv4 and IPv6 addresses"
@@ -68,4 +67,6 @@ def argument_parser():
 
     return args.r, args.u, args.no
 
-main()
+if __name__ == "__main__":
+    ranges, unusable_hosts, noOutput = argument_parser()
+    main(ranges, unusable_hosts, noOutput)
