@@ -1,5 +1,4 @@
-# IP list generator
-
+# Python implementation of an IP list generator
 This script takes IP ranges and an "unusable hosts" flag as arguments and generates lists of IPs for each given range.
 
 ## Usage from commandline:
